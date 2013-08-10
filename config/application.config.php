@@ -1,16 +1,14 @@
 <?php
-return array();
 return array(
     'modules' => array(
-        'ZFTool',
+        'Intellimage\\Ic',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
             'config/autoload/{,*.}{global,local}.php',
         ),
         'module_paths' => array(
-            '.',
-            './vendor',
+            'Intellimage\\Ic' => dirname(__DIR__ . '/../'),
         ),
     ),
 );

@@ -27,13 +27,12 @@ if (file_exists("$basePath/vendor/autoload.php")) {
 
 if (file_exists("$basePath/config/application.config.php")) {
     $appConfig = require "$basePath/config/application.config.php";
-    if (!isset($appConfig['modules']['ZFTool'])) {
+    if (!isset($appConfig['modules']['ic'])) {
         $appConfig['modules'][] = 'Intellimage\\Ic';
         $appConfig['module_listener_options']['module_paths']['Intellimage\\Ic'] = $projectDir;
     }
 } else {
     $appConfig = require __DIR__ . "/../config/application.config.php";
-//    $appConfig = 
 }
 
 Zend\Mvc\Application::init($appConfig)->run();
