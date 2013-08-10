@@ -13,20 +13,50 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterface, ConfigProviderInterface
 {
     const NAME    = 'IC - Intellimage command line Tool';
-
+    
     /**
      * @var ServiceLocatorInterface
      */
     protected $sm;
 
+    
+    private $_application = null;
+    
+    private $_config = null;
+
+
     public function onBootstrap(EventInterface $e)
     {
-        $this->sm = $e->getApplication()->getServiceManager();
+        $this->_application = $e->getApplication();
+        $this->sm = $this->_application->getServiceManager();
     }
 
-    public function getConfig()
+    public function getConfig($configPath = null, $asObjects=false)
     {
-        return include __DIR__ . '/../../../config/module.config.php';
+        if (!isset($this->_config)) {
+            $this->_config = include __DIR__ . '/../../../config/module.config.php';
+        }
+        $config = $this->_config;
+        if (isset($configPath)) {
+            $config = $this->_config;
+            $path = explode('/', $configPath);
+            while (count($path) && isset($config[$path[0]])) {
+                $config = $config[array_shift($path)];
+            }
+            if (count($path)) {
+                $config = null;
+            }
+        }
+        
+        if ($asObjects) {
+            $config = json_decode(json_encode($config));
+        }
+        return $config;
+    }
+    
+    public function getApplication()
+    {
+        return $this->_application;
     }
 
     public function getAutoloaderConfig()
@@ -57,6 +87,9 @@ class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterfa
             'create module <name> [<path>]'     => 'create a module',
             array('<name>', 'The name of the module to be created'),
             array('<path>', 'The root path of a ZF2 application where to create the module'),
+            
+            'Model creation:',
+            'create varien_model [model name]'   => 'create a varien model',
         );
     }
 }

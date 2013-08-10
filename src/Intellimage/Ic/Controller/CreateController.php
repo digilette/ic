@@ -18,9 +18,16 @@ class CreateController extends AbstractActionController
         $request = $this->getRequest();
         $name    = $request->getParam('name');
         $console = $this->getServiceLocator()->get('console');
+        $config = $this->getServiceLocator()->get('Config');
+        $moduleManager = $this->getServiceLocator()->get('modulemanager');
+        var_dump($config);
         $console->writeLine("Creating module $name", Color::LIGHT_GREEN);
         var_dump($request->getParams());
         var_dump($console);
+        $module = $moduleManager->getModule('Intellimage\Ic');
+        var_dump(get_class($module));
+        var_dump($module->getConfig('console', true));
+        
         echo "\n";
         return false;
         die();

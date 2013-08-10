@@ -17,7 +17,7 @@ return array(
             'routes' => array(
                 'ic-create-module' => array(
                     'options' => array(
-                        'route'    => 'create module [--admin|-a]:admin [--minimal|-m]:minimal <name> [<path>] ',
+                        'route'    => 'create module [--admin|-a]:admin [--minimal|-m]:minimal <name> [<path>]',
                         'defaults' => array(
                             'controller' => 'Ic_Create',
                             'action'     => 'module',
