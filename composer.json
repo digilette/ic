@@ -1,0 +1,12 @@
+{
+    "require": {
+        "zendframework/zftool": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Intellimage\\Ic": "src",
+            "Test\\Intellimage\\Ic": "tests"
+        }
+    },
+    "bin": ["bin/ic"]
+}
